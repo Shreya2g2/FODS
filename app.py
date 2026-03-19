@@ -7,7 +7,7 @@ import colorsys
 
 # ── Page config ───────────────────────────────────────────
 st.set_page_config(
-    page_title="StyleSense ✨",
+    page_title="ELVA 🌸",
     page_icon="👗",
     layout="wide",
     initial_sidebar_state="collapsed",
@@ -606,5 +606,5 @@ with right:
             """, unsafe_allow_html=True)
         st.markdown('</div>', unsafe_allow_html=True)
 
-st.markdown('<div class="footer">Made with 💗 · StyleSense · Your AI Fashion Advisor</div>',
+st.markdown('<div class="footer">Made with 💗 · ELVA · Where Ease meets Elegance</div>',
             unsafe_allow_html=True)
