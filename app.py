@@ -497,7 +497,7 @@ with left:
     )
     st.markdown('</div>', unsafe_allow_html=True)
 
-    analyze = st.button("✨ Build My Outfit")analyze = st.button("✨ Build My Outfit")
+    analyze = st.button("✨ Build My Outfit")
 
 
 # ── RIGHT ─────────────────────────────────────────────────
