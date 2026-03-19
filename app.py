@@ -403,8 +403,8 @@ def score_color(s):
 
 st.markdown("""
 <div class="hero">
-  <h1>✨ StyleSense</h1>
-  <p>Upload any clothing item — we detect its color and build the perfect outfit around it</p>
+  <h1>✨ ELVA</h1>
+    <p>Where Ease meets Elegance</p>
 </div>
 """, unsafe_allow_html=True)
 
