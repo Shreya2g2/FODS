@@ -484,7 +484,20 @@ with left:
         horizontal=True, label_visibility="collapsed")
     st.markdown('</div>', unsafe_allow_html=True)
 
-    analyze = st.button("✨ Build My Outfit")
+    st.markdown('<div class="card">', unsafe_allow_html=True)
+    st.markdown('<div class="card-title">🌿 Your Skin Tone (Optional)</div>', unsafe_allow_html=True)
+    skin_tone = st.selectbox("Skin tone",
+        ["Prefer not to say", "Fair / Light", "Light Medium", "Medium / Wheatish", "Medium Dark / Olive", "Dark / Deep"],
+        label_visibility="collapsed")
+    notes = st.text_area(
+        "Anything else?",
+        placeholder="e.g. I prefer loose fits, I already own blue jeans, I avoid bright colors...",
+        height=80,
+        label_visibility="collapsed",
+    )
+    st.markdown('</div>', unsafe_allow_html=True)
+
+    analyze = st.button("✨ Build My Outfit")analyze = st.button("✨ Build My Outfit")
 
 
 # ── RIGHT ─────────────────────────────────────────────────
