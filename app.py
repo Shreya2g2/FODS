@@ -22,7 +22,7 @@ html, body {
 .block-container { padding-top: 2rem; padding-bottom: 2rem; }
 
 .hero {
-    background: linear-gradient(135deg, #F2EDE4, #E6DCD3, #DDE5DC);
+    background: linear-gradient(135deg, #F2EDE4, #E6DCD3, ##A98BBF);
     padding: 2rem;
     border-radius: 15px;
     text-align: center;
