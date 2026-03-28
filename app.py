@@ -1,133 +1,130 @@
-# ── Custom CSS ────────────────────────────────────────────
 import streamlit as st
+import numpy as np
+from PIL import Image
+import random
+import colorsys
+
+# ── Page config ───────────────────────────────────────────
+st.set_page_config(
+    page_title="ELVA 🌸",
+    page_icon="👗",
+    layout="wide",
+    initial_sidebar_state="collapsed",
+)
+
+# ── Custom CSS ────────────────────────────────────────────
 st.markdown("""
 <style>
-@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;1,400&family=Lato:wght@300;400;700&display=swap');
-
-html, body, [class*="css"] {
-    font-family: 'Lato', sans-serif;
+html, body {
     background-color: #FAF7F2;
+    font-family: 'sans-serif';
 }
-
-#MainMenu, footer, header { visibility: hidden; }
 .block-container { padding-top: 2rem; padding-bottom: 2rem; }
 
 .hero {
-    background: linear-gradient(135deg, #F2EDE4 0%, #E6DCD3 50%, #DDE5DC 100%);
-    border-radius: 20px;
-    padding: 2.5rem 2.5rem;
+    background: linear-gradient(135deg, #F2EDE4, #E6DCD3, #DDE5DC);
+    padding: 2rem;
+    border-radius: 15px;
     text-align: center;
     margin-bottom: 2rem;
-    border: 1px solid #E6DCD3;
 }
-
-.hero h1 {
-    font-family: 'Playfair Display', serif;
-    font-size: 2.8rem;
-    color: #5E5A54;
-    margin-bottom: 0.4rem;
-}
-
-.hero p {
-    font-size: 1rem;
-    color: #7A746D;
-    font-weight: 300;
-    margin: 0;
-}
+.hero h1 { color: #5E5A54; }
+.hero p { color: #7A746D; }
 
 .card {
-    background: #FFFFFF;
-    border-radius: 16px;
-    padding: 1.6rem;
+    background: white;
+    padding: 1.5rem;
+    border-radius: 12px;
     border: 1px solid #E6DCD3;
-    box-shadow: 0 2px 16px rgba(150,130,100,0.08);
-    margin-bottom: 1.4rem;
-}
-
-.card-title {
-    font-family: 'Playfair Display', serif;
-    font-size: 1.2rem;
-    color: #5E5A54;
     margin-bottom: 1rem;
 }
 
-.color-detected {
-    display: flex;
-    align-items: center;
-    gap: 1rem;
-    background: #F5F2EC;
-    border-radius: 10px;
-    padding: 0.75rem 1rem;
-    border: 1px solid #E6DCD3;
-    margin-top: 0.75rem;
+.card-title {
+    font-weight: bold;
+    color: #5E5A54;
+    margin-bottom: 0.5rem;
 }
 
-.swatch {
-    width: 36px;
-    height: 36px;
-    border-radius: 50%;
-    border: 2px solid #D6CFC7;
-    flex-shrink: 0;
-}
-
-.color-name { font-weight: 700; color: #5E5A54; font-size: 0.95rem; }
-.color-sub  { font-size: 0.75rem; color: #8A837C; margin-top: 0.1rem; }
-
-.pairing-badge {
-    display: inline-block;
-    background: #EFE8E0;
-    color: #6B665F;
-    border: 1.5px solid #D6CFC7;
-    border-radius: 100px;
-    padding: 0.25rem 0.75rem;
-    font-size: 0.78rem;
-    font-weight: 700;
-    margin: 0.2rem;
-}
-
-div[data-testid="stButton"] > button {
+.stButton > button {
     background: linear-gradient(135deg, #A3B18A, #6B9080);
     color: white;
+    border-radius: 20px;
     border: none;
-    border-radius: 50px;
-    padding: 0.65rem 2.5rem;
-    font-size: 1rem;
-    font-weight: 700;
-    width: 100%;
-}
-
-div[data-testid="stSelectbox"] label,
-div[data-testid="stTextArea"] label,
-div[data-testid="stFileUploader"] label {
-    color: #5E5A54 !important;
-    font-weight: 600;
-}
-
-.score-bar-bg {
-    background: #E6DCD3;
-}
-
-.verdict-good  { background:#E3F0E8; color:#2F5D50; }
-.verdict-mixed { background:#F5EBDD; color:#7A5C2E; }
-.verdict-bad   { background:#F8E4E4; color:#8B3A3A; }
-
-.outfit-item {
-    background:#F5F2EC;
-    border:1px solid #E6DCD3;
-}
-
-.uploaded-item {
-    background: linear-gradient(135deg,#EFE8E0,#E6DCD3);
-    border:2px solid #A3B18A;
-}
-
-.alt-card {
-    background:#F5F2EC;
-    border-left:4px solid #A3B18A;
 }
 
 .footer {
+    text-align:center;
     color:#A89F94;
+    margin-top:2rem;
 }
 </style>
 """, unsafe_allow_html=True)
+
+# ── Functions ─────────────────────────────────────────────
+def get_dominant_color(pil_img):
+    img = pil_img.convert("RGB").resize((50, 50))
+    pixels = np.array(img).reshape(-1, 3)
+    return tuple(pixels.mean(axis=0).astype(int))
+
+def rgb_to_color_info(rgb):
+    return {"name": "Custom Color", "hex": f"#{rgb[0]:02X}{rgb[1]:02X}{rgb[2]:02X}"}
+
+def build_outfit(color_info):
+    return [
+        {"type": "Top", "name": f"{color_info['name']} Top"},
+        {"type": "Bottom", "name": "Neutral Pants"},
+        {"type": "Shoes", "name": "White Sneakers"},
+    ]
+
+# ── UI ────────────────────────────────────────────────────
+st.markdown("""
+<div class="hero">
+  <h1>✨ ELVA</h1>
+  <p>Where Ease meets Elegance</p>
+</div>
+""", unsafe_allow_html=True)
+
+left, right = st.columns(2)
+
+# LEFT SIDE
+with left:
+    st.markdown('<div class="card">', unsafe_allow_html=True)
+    st.markdown('<div class="card-title">Upload Item</div>', unsafe_allow_html=True)
+
+    uploaded = st.file_uploader("Upload image", type=["jpg","png"])
+
+    color_info = None
+
+    if uploaded:
+        img = Image.open(uploaded)
+        st.image(img, use_container_width=True)
+
+        rgb = get_dominant_color(img)
+        color_info = rgb_to_color_info(rgb)
+
+        st.write(f"Detected color: {color_info['hex']}")
+
+    st.markdown('</div>', unsafe_allow_html=True)
+
+    occasion = st.selectbox("Occasion", ["Casual","Party","Formal"])
+
+    analyze = st.button("Build Outfit")
+
+# RIGHT SIDE
+with right:
+    if analyze:
+        if not color_info:
+            color_info = {"name":"Neutral","hex":"#CCCCCC"}
+
+        outfit = build_outfit(color_info)
+
+        st.markdown('<div class="card">', unsafe_allow_html=True)
+        st.markdown('<div class="card-title">Your Outfit</div>', unsafe_allow_html=True)
+
+        for item in outfit:
+            st.write(f"{item['type']}: {item['name']}")
+
+        st.markdown('</div>', unsafe_allow_html=True)
+
+# Footer
+st.markdown('<div class="footer">Made with 💗 · ELVA</div>', unsafe_allow_html=True)
